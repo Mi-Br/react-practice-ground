@@ -1,25 +1,27 @@
+import React from "react"
 import styled from "styled-components"
 interface ArrowProps{
     active?: boolean
 }
 
-const Arrow:React.FC<ArrowProps> = ({active=true})=>{
+const Arrow:React.FC<ArrowProps> = ()=>{
     return(
         <Line>
-            <Svg active={active}>
+            <Svg>
             <svg xmlns="http://www.w3.org/2000/svg" width="46" height="44" viewBox="0 0 46 44"><g fill="none"  strokeWidth="2"><path d="M1 22.019C8.333 21.686 23 25.616 23 44M23 44V0M45 22.019C37.667 21.686 23 25.616 23 44"/></g></svg>
             </Svg>
         </Line>
     )
 }
 
-const Svg = styled.div<{active: boolean}>`
-    stroke: var(--clr-off-white);
+const Svg = styled.div`
+    stroke: var(--clr-white);
     display: inline-block;
-    background-color: ${props => props.active ? 'var(--clr-purple)' : 'var(--clr-off-black)'};
+    background-color: var(--clr-purple);
     border-radius: 50%;
     padding: 26px;
     margin: 0;
+
 `
 const Line = styled.div`
     isolation: isolate;
@@ -28,6 +30,10 @@ const Line = styled.div`
     line-height: 0;
     display: flex;
     justify-content: flex-end;
+    :hover{
+        background-color: var(--clr-off-black);
+        cursor: pointer;
+    }
     ::before{
         content: '';
         position: absolute;

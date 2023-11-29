@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import './Components/assets/fonts/fonts.css'
+import '../../../public/AgeCalculatorFonts/fonts/fonts.css'
 
 import Arrow from './Components/Arrow/Arrow'
 import Form from './Components/Form/Form'
@@ -32,6 +32,8 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     height: 100vh;
+    outline:1px solid red;
+    padding:6px;
 `
 
 const StyledWrapper = styled.div`
