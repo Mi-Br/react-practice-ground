@@ -17,6 +17,9 @@ const Span = ({ name, value }: SpanProps) => {
 	};
 
 	useEffect(() => {
+		if (value === 0) {
+			return;
+		}
 		let currentValue = 0;
 		const interval = setInterval(() => {
 			if (currentValue < value) {
@@ -33,7 +36,7 @@ const Span = ({ name, value }: SpanProps) => {
 		<>
 			<StyledWrapper>
 				<StyledValue>
-					{!isNaN(animatedValue) ? animatedValue : label.empty}{" "}
+					{!isNaN(value) ? animatedValue : label.empty}{" "}
 				</StyledValue>
 				<StyledLabel>{label[name]}</StyledLabel>
 			</StyledWrapper>

@@ -12,7 +12,7 @@ const Form = () => {
 	const [monthError, setMonthError] = useState<string>("");
 	const [year, setYear] = useState<number | typeof NaN>(NaN);
 	const [yearError, setYearError] = useState<string>("");
-	const [dateHasErrors, setDateHasErrors] = useState<boolean>(false);
+	const [_, setDateHasErrors] = useState<boolean>(false);
 	const [ageCount, setAgeCount] = useState<AgeCount>({
 		days: NaN,
 		months: NaN,
