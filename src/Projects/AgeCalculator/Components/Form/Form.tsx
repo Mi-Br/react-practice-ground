@@ -3,7 +3,7 @@ import InputField from "../Input/Input";
 import Arrow from "../Arrow/Arrow";
 import { useState } from "react";
 import Span from "./Span";
-import {diffDaysMonthsYears} from "../../Utils/utils";
+import { diffDaysMonthsYears } from "../../Utils/utils";
 
 const Form = () => {
 	const [day, setDay] = useState<number | typeof NaN>(NaN);
@@ -12,7 +12,7 @@ const Form = () => {
 	const [monthError, setMonthError] = useState<string>("");
 	const [year, setYear] = useState<number | typeof NaN>(NaN);
 	const [yearError, setYearError] = useState<string>("");
-    const [dateHasErrors, setDateHasErrors] = useState<boolean>(false);
+	const [dateHasErrors, setDateHasErrors] = useState<boolean>(false);
 	const [ageCount, setAgeCount] = useState<AgeCount>({
 		days: NaN,
 		months: NaN,
@@ -24,7 +24,6 @@ const Form = () => {
 		months: number;
 		years: number;
 	};
-
 
 	function onChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { name, value } = e.target;
@@ -114,23 +113,22 @@ const Form = () => {
 		e.preventDefault();
 
 		//check errors
-		console.log(`form submited with:`, day, month, year);
-        const thereAreErrors =  (!validateDay(day) || !validateMonth(month) || !validateYear(year) || !validDate(day, month, year));
+		const thereAreErrors =
+			!validateDay(day) ||
+			!validateMonth(month) ||
+			!validateYear(year) ||
+			!validDate(day, month, year);
 		if (thereAreErrors) {
-				setDayError("must be a valid date");
-                setDateHasErrors(thereAreErrors);
-			} else {
-				setDayError("");
-                setDateHasErrors(true);
-        }
-        console.log(dayError, monthError, yearError)
-        console.log(dateHasErrors)
-        console.log(ageCount)
+			setDayError("must be a valid date");
+			setDateHasErrors(thereAreErrors);
+		} else {
+			setDayError("");
+			setDateHasErrors(true);
+		}
 		// update count if no errors
 		if (!thereAreErrors) {
 			const inputDate = new Date(year, month, day);
 			const [days, months, years] = diffDaysMonthsYears(inputDate);
-			console.log(`date diff: ${days} ${months} ${years}`);
 			setAgeCount({ days, months, years });
 		} else {
 			setAgeCount({
@@ -179,4 +177,7 @@ const FieldWrapper = styled.div`
 	flex-direction: row;
 	gap: 32px;
 	display: flex;
+	@media (max-width: 768px) {
+		gap: 16px;
+	}
 `;

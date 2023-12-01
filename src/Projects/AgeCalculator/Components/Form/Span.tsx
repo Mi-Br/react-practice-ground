@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 
 type SpanProps = {
 	name: "day" | "month" | "year";
@@ -6,6 +7,8 @@ type SpanProps = {
 };
 
 const Span = ({ name, value }: SpanProps) => {
+	const [animatedValue, setAnimatedValue] = useState<number>(0);
+
 	const label = {
 		day: "days",
 		month: "months",
@@ -13,11 +16,26 @@ const Span = ({ name, value }: SpanProps) => {
 		empty: "_ _",
 	};
 
+	useEffect(() => {
+		let currentValue = 0;
+		const interval = setInterval(() => {
+			if (currentValue < value) {
+				currentValue++;
+				setAnimatedValue(currentValue);
+			} else {
+				clearInterval(interval);
+			}
+		}, 30);
+		return () => clearInterval(interval);
+	}, [value]);
+
 	return (
 		<>
 			<StyledWrapper>
-				<StyledValue>{!isNaN(value) ? value : label.empty}{' '}</StyledValue>
-                <StyledLabel>{label[name]}</StyledLabel>
+				<StyledValue>
+					{!isNaN(animatedValue) ? animatedValue : label.empty}{" "}
+				</StyledValue>
+				<StyledLabel>{label[name]}</StyledLabel>
 			</StyledWrapper>
 		</>
 	);
@@ -25,22 +43,23 @@ const Span = ({ name, value }: SpanProps) => {
 
 export default Span;
 
-const StyledWrapper = styled.div``;
-const StyledValue = styled.span`
+const StyledWrapper = styled.div`
 	font-family: Poppins;
 	font-size: 104px;
 	font-style: italic;
 	font-weight: 800;
 	line-height: 110%; /* 114.4px */
 	letter-spacing: -2.08px;
-    color: var(--clr-purple);
-`;
 
-const StyledLabel = styled.span`
-	font-family: Poppins;
-	font-size: 104px;
-	font-style: italic;
-	font-weight: 800;
-	line-height: 110%; /* 114.4px */
-	letter-spacing: -2.08px;
+	@media (max-width: 768px) {
+		font-size: 56px;
+		font-style: italic;
+		font-weight: 800;
+		line-height: 110%; /* 61.6px */
+		letter-spacing: -1.12px;
+	}
 `;
+const StyledValue = styled.span`
+	color: var(--clr-purple);
+`;
+const StyledLabel = styled.span``;

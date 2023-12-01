@@ -40,4 +40,7 @@ const StyledWrapper = styled.div`
 	border: 1px solid grey;
 	h1 {
 	}
+	@media (max-width: 768px) {
+		padding: 24px;
+	}
 `;
