@@ -1,22 +1,21 @@
-import {
-	differenceInYears,
-	differenceInMonths,
-	differenceInDays,
-} from "date-fns";
 
-export function diffDaysMonthsYears(birthDate: Date) {
-  const currentDate = new Date();
 
-  let years = differenceInYears(currentDate, birthDate);
-
-  // Adjust years if the birthday hasn't occurred yet this year
-  if (currentDate.getMonth() < birthDate.getMonth() ||
-      (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate())) {
-    years--;
+export function diffDaysMonthsYears(startDate: Date) {
+  // Validate input
+  if (!(startDate instanceof Date)) {
+    throw new Error('Invalid date format');
   }
 
-  const months = differenceInMonths(currentDate, new Date(currentDate.getFullYear(), birthDate.getMonth(), birthDate.getDate()));
-  const days = differenceInDays(currentDate, new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - months * 30));
+  // Get the current date and time
+  const currentDate = new Date();
+  console.log(`current date: ${currentDate}`);
+  // Calculate the time difference in minutes
+  const timeDifferenceInMinutes = Math.floor((currentDate.getTime() - startDate.getTime()) / (1000 * 60));
+console.log(`time difference in minutes: ${timeDifferenceInMinutes}`);
+  // Convert minutes to years, months, and days
+  const years = Math.floor(timeDifferenceInMinutes / (60 * 24 * 365));
+  const months = Math.floor((timeDifferenceInMinutes % (60 * 24 * 365)) / (60 * 24 * 30));
+  const days = Math.floor((timeDifferenceInMinutes % (60 * 24 * 30)) / (60 * 24));
 
-  return [years, months, days];
+  return [days, months, years];
 }
